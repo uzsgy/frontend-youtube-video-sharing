@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { store } from './store/index';
+import { store } from 'store/index';
 import { Provider } from 'react-redux';
-import App from './App';
+import App from 'App';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import './styles/global.css';
+import 'styles/global.css';
 
 const queryClient = new QueryClient();
 
