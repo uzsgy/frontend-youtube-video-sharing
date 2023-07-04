@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { IVideo } from 'consts/video';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import {
   AiFillDislike,
   AiFillLike,
@@ -8,8 +8,7 @@ import {
   AiOutlineLike,
 } from 'react-icons/ai';
 import Request from 'components/classes/http';
-import { toast } from 'react-toastify';
-import { PREFERENCE_STATE } from 'consts/preference';
+import { IPreference } from 'consts/preference';
 
 type Props = {
   video: IVideo;
@@ -18,20 +17,22 @@ type Props = {
 const Video: React.FC<Props> = ({ video }) => {
   const [recallLike, setRecallLike] = useState(false);
   const [recallDislike, setRecallDislike] = useState(false);
+  const [preference, setPreference] = useState<IPreference>()
 
   const { data } = useQuery({
     queryKey: [`queryLike${video.id}`],
     queryFn: () => {
       setRecallLike(false);
       return Request.get(
-        `${process.env.REACT_APP_SERVER_ENDPOINT}/like_video/${video.id}`
+        `${process.env.REACT_APP_SERVER_ENDPOINT}/users/like_video/${video.id}`
       );
     },
-    onSuccess: () => {
-      toast('You are like successfully!');
+    onSuccess: (response) => {
+      setPreference(response.data)
+      // toast('You are like successfully!');
     },
     onError: () => {
-      toast('You are like failure!');
+      // toast('You are like failure!');
     },
     enabled: recallLike,
     retry: false,
@@ -43,14 +44,15 @@ const Video: React.FC<Props> = ({ video }) => {
     queryFn: () => {
       setRecallDislike(false);
       return Request.get(
-        `${process.env.REACT_APP_SERVER_ENDPOINT}/dislike_video/${video.id}`
+        `${process.env.REACT_APP_SERVER_ENDPOINT}/users/dislike_video/${video.id}`
       );
     },
-    onSuccess: () => {
-      toast('You are dislike successfully!');
+    onSuccess: (response) => {
+      setPreference(response.data)
+      // toast('You are dislike successfully!');
     },
     onError: () => {
-      toast('You are dislike failure!');
+      // toast('You are dislike failure!');
     },
     enabled: recallDislike,
     retry: false,
@@ -88,7 +90,7 @@ const Video: React.FC<Props> = ({ video }) => {
         </p>
         <div className="flex gap-2 items-center">
           <span>{video.like ?? 0}</span>
-          {video.preference.pref === PREFERENCE_STATE.LIKE ? (
+          {(preference?.pref ?? video.preference.pref) === 'like' ? (
             <AiFillLike
               onClick={handleOnBtnLikeClicked}
               className="cursor-pointer"
@@ -100,7 +102,7 @@ const Video: React.FC<Props> = ({ video }) => {
             />
           )}
           <span>{video.dislike ?? 0}</span>
-          {video.preference.pref === PREFERENCE_STATE.DISLIKE ? (
+          {(preference?.pref ?? video.preference.pref) === 'dislike' ? (
             <AiFillDislike
               onClick={handleOnBtnDislikeClicked}
               className="cursor-pointer"
