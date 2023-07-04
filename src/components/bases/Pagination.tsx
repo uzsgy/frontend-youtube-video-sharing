@@ -64,8 +64,8 @@ const Pagination: React.FC<Props> = ({
           <li
             onClick={(e) => handleOnChangePage(e.currentTarget.textContent)}
             className={classNames(
-              `border border-gray-300 bg-gray-900/5 w-7 h-7 flex justify-center cursor-pointer rounded text-sm items-center text-gray-900 hover:scale-105`,
-              { 'bg-gray-800/20': currenPage === 1 }
+              `border border-gray-300 w-7 h-7 flex justify-center cursor-pointer rounded text-sm items-center text-gray-900 hover:scale-105`,
+              currenPage === 1 ? 'bg-gray-900/20' : 'bg-gray-900/5'
             )}
           >
             1
@@ -82,8 +82,8 @@ const Pagination: React.FC<Props> = ({
               <li
                 key={page++}
                 className={classNames(
-                  `border border-gray-300 bg-gray-900/5 w-7 h-7 flex justify-center cursor-pointer rounded text-sm items-center text-gray-900 hover:scale-105`,
-                  { 'bg-gray-800/20': currenPage === contentNumber }
+                  `border border-gray-300 w-7 h-7 flex justify-center cursor-pointer rounded text-sm items-center text-gray-900 hover:scale-105`,
+                  currenPage === contentNumber ? 'bg-gray-900/20' : 'bg-gray-900/5'
                 )}
                 onClick={(e) => handleOnChangePage(e.currentTarget.textContent)}
               >
@@ -94,8 +94,8 @@ const Pagination: React.FC<Props> = ({
           {needEndDots && <span>...</span>}
           <li
             className={classNames(
-              `border border-gray-300 bg-gray-900/5 w-7 h-7 flex justify-center cursor-pointer rounded text-sm items-center text-gray-900 hover:scale-105`,
-              { 'bg-gray-800/20': currenPage === totalPages }
+              `border border-gray-300 w-7 h-7 flex justify-center cursor-pointer rounded text-sm items-center text-gray-900 hover:scale-105`,
+              currenPage === totalPages ? 'bg-gray-900/20' : 'bg-gray-900/5'
             )}
             onClick={(e) =>
               handleOnChangePage(
@@ -108,20 +108,20 @@ const Pagination: React.FC<Props> = ({
         </React.Fragment>
       ) : (
         ((startArrayNumber = 1),
-        Array.from(Array(totalPages).keys()).map((page) => {
-          return (
-            <li
-              key={page++}
-              className={classNames(
-                `border border-gray-300 bg-gray-900/5 w-7 h-7 flex justify-center cursor-pointer rounded text-sm items-center text-gray-900 hover:scale-105`,
-                { 'bg-gray-800/20': currenPage === startArrayNumber }
-              )}
-              onClick={(e) => handleOnChangePage(e.currentTarget.textContent)}
-            >
-              {startArrayNumber++}
-            </li>
-          );
-        }))
+          Array.from(Array(totalPages).keys()).map((page) => {
+            return (
+              <li
+                key={page++}
+                className={classNames(
+                  `border border-gray-300 w-7 h-7 flex justify-center cursor-pointer rounded text-sm items-center text-gray-900 hover:scale-105`,
+                  currenPage === startArrayNumber ? 'bg-gray-900/20' : 'bg-gray-900/5'
+                )}
+                onClick={(e) => handleOnChangePage(e.currentTarget.textContent)}
+              >
+                {startArrayNumber++}
+              </li>
+            );
+          }))
       )}
       {currenPage < totalPages ? (
         <li
