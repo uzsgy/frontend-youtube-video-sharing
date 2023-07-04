@@ -1,14 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import DefaultLayout from './components/layouts/DefaultLayout';
-import Home from './components/Home';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
+import DefaultLayout from 'components/layouts/DefaultLayout';
+import Home from 'components/Home';
+import Login from 'components/auth/Login';
+import Register from 'components/auth/Register';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { useAppDispatch, useAppSelector } from './hooks/common';
-import { authActions } from './store/authSlice';
+import { useAppDispatch, useAppSelector } from 'hooks/common';
 
 const router = createBrowserRouter([
   {

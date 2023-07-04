@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Input } from '../bases/Input';
-import { Button } from '../bases/Button';
+import { Input } from 'components/bases/Input';
+import { Button } from 'components/bases/Button';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useMutation } from '@tanstack/react-query';
-import Request from '../classes/http';
-import { useAppDispatch, useAppSelector } from '../../hooks/common';
-import { authActions } from '../../store/authSlice';
-import { IUser } from '../../consts/user';
+import Request from 'components/classes/http';
+import { useAppDispatch, useAppSelector } from 'hooks/common';
+import { authActions } from 'store/authSlice';
+import { IUser } from 'consts/user';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -39,7 +39,7 @@ const Register: React.FC = () => {
         ...response.data,
       };
       dispatch(authActions.setUser(user));
-      toast.success('Your are registered successfuly!');
+      toast.success('Your are registered successfully!');
       navigate('/');
     },
     onError: (error: any) => {
